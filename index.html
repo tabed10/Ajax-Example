@@ -6,22 +6,29 @@
   </head>
   <body>
       <!-- Your site content here -->
-      <h1>Medicine Cabinet</h1>
-      <form id="addMedicine" method="get">
-        Enter Medicine Name: <br><input type="text" name="Enter Medicine Name:"><br>
-        Enter Quantity: <br><input type="text" name="Enter Quantity"><br>
-        <input type="submit" value="Add">
-      </form>
-
-      <div id='napa' >
-        <h3>Napa</h3>
-        <p>Quantity: <div id='Quantity'>12</div></p>
-        <button id='add'> +</button>
-        <button id='subtract'> -</button>
-      </div>
-
-
+      <button id="show">Show all users</button>
+      <div
+        id="users"></div>
       <script src="jquery-3.3.1.min.js"></script>
       <script src="script.js"></script>
+      <script>
+        $('#show').click(function(){
+          $.ajax({
+            method: "GET",
+            url: "http://skeleton.mernbook.com/api/users"
+          }).done(function(response){
+            console.log("Done")
+            console.log(response)
+            for(var i = 0; i<response.length; i++){
+              var name = $('<p>').text(response[i].name)
+                $('#users').append(name)
+            }
+          
+        }).fail(function(response){
+          console.log("Failed")
+          console.log(response)
+        })
+      })
+      </script>
   </body>
 </html>
